@@ -107,8 +107,59 @@ you can view your password in below link
 https://www.dj4e.com/tools/dj-tutorial/?PHPSESSID=4051f7108f01caec0382d203150859e9
 ```
 
+after changing views.py press esc key and type
+
+```
+:wq
+```
+
+it will save automatically
+
+now open urls.py with same process
+
+```
+vi urls.py
+```
+
+```
+press "I" for edit
+```
+
 ## urls.py
 
 ```
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('polls/', include('polls.urls')),
+    path('admin/', admin.site.urls),
+]
+```
+
+after changing urls.py press esc key and type
 
 ```
+:wq
+```
+
+after editing urls.py and views.py now you should go to the old directory
+
+```
+cd ..
+```
+
+```
+cd ..
+```
+
+if you give ls command in terminal you will be seeing mysite,polls,manage.py,readme.md,etc
+
+```
+python manage.py migrate
+```
+
+```
+python manage.py collectstatic
+```
+
