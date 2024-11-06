@@ -3,13 +3,16 @@
 ## views.py
 
 ```
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect                                                                                                         
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
 from .models import Choice, Question
+
+def owner(request):
+    return HttpResponse("Hello, world. c433ceb4 is the polls owner.")
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
@@ -24,7 +27,6 @@ class IndexView(generic.ListView):
             pub_date__lte=timezone.now()
         ).order_by('-pub_date')[:5]
 
-
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
@@ -35,11 +37,9 @@ class DetailView(generic.DetailView):
         """
         return Question.objects.filter(pub_date__lte=timezone.now())
 
-
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
-
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -58,11 +58,6 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-
-
-# New owner view function
-def owner(request):
-    return HttpResponse("Hello, world. c433ceb4 is the polls index.")
 ```
 
 change views.py code also according to the before process
@@ -73,9 +68,9 @@ the last line of the code is
 ```
 "Hello, world. c433ceb4 is the polls index."
 ```
-for me is that password only so i used c433ceb4 make you u have the same or different
+for me the password is c433ceb4 make you u have the same or different if different change the (c433ceb4) and try
 
-or else change that line in your program
+if not working changing the full code
 
 by help of this code
 
@@ -128,12 +123,17 @@ press "I" for edit
 ## urls.py
 
 ```
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
 
+from . import views
+
+app_name = 'polls'
 urlpatterns = [
-    path('polls/', include('polls.urls')),
-    path('admin/', admin.site.urls),
+    path('', views.IndexView.as_view(), name='index'),
+    path('owner/', views.owner, name='owner'),
+    path('<int:pk>/', views.DetailView.as_view(), name='detail'),
+    path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
+    path('<int:question_id>/vote/', views.vote, name='vote'),
 ]
 ```
 
