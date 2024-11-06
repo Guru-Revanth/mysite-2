@@ -64,7 +64,7 @@ change views.py code also according to the before process
 
 ![image](https://github.com/user-attachments/assets/0e197298-8392-4960-89c9-b472b5586acb)
 
-the last line of the code is 
+in the code check this line
 ```
 "Hello, world. c433ceb4 is the polls index."
 ```
